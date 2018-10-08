@@ -1,0 +1,33 @@
+<div id="page-wrapper">
+	<?php $this->theme->title("Flagged URLs", "SmallURL's that have been viewed excessively in a short period", array("Flagged URLs")); ?>
+	<?php
+		// Retrieves all flagged URLs.
+		$flagged = $this->db->prepare("SELECT * FROM smallurl_entries WHERE `flagged`=1");
+		$flagged->execute();
+		$data = $flagged->fetchAll();
+	?>
+	<i>Clicks from bots are not filtered</i>
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th>SmallURL</th>
+				<th>Destination</th>
+				<th>Creation</th>
+				<th>Clicks</th>
+			</tr>
+		</thead>
+<?php
+foreach ($data as $url) {
+	$uses = $this->db->prepare("SELECT * FROM smallurl_clicks WHERE `smallurl`=:id");
+	$uses->execute(array(":id"=>$url['id']));
+	$uses = $uses->fetchColumn();
+	$uses += (int)$url['uses'];
+	echo "<tr>";
+	echo "<td><a href='http://{$this->env['domain']}/{$url['short']}/more'>".$url['short']."</a></td>";
+	echo "<td>".implode("",array_slice(str_split($url['content']),0,30))."...</td>";
+	echo "<td>".$this->dateify($url['stamp'])."</td>";
+	echo "<td>".$uses."</td>";
+}
+?>
+	</table>
+</div>

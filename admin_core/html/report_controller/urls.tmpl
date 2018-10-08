@@ -1,0 +1,41 @@
+<div id="page-wrapper">
+<?php $this->theme->title("Reports >", "Reported Users", array("Reported Users and URLs","Reported URLs")); ?>
+<?php
+$urls = $this->db->prepare("SELECT * FROM smallurl_report WHERE `type`=0");
+$urls->execute();
+$urls = $urls->fetchAll();
+?>
+<h2>Reported SmallURLs</h2>
+<table class="table table-hover">
+	<thead>
+		<tr>
+			<th>SmallURL</th>
+			<th>Reporter</th>
+			<th>Reason</th>
+			<th>Date</th>
+		</tr>
+	</thead>
+	<?php
+		if (count($urls) > 0) {
+			foreach ($urls as $rep) {
+				$url = $this->db->prepare("SELECT * FROM smallurl_entries WHERE `id`=:id");
+				$url->execute(array(":id"=>$rep['item']));
+				$url = $url->fetchObject();
+				$acc = new account();
+				$user = $acc->userInfo($rep['user']);
+				?>
+				<tr>
+					<td><a href="http://<?=$this->env['domain']?>/<?=$url->short?>/more" target="_blank"><?=$url->short?></a></td>
+					<td><?=$user->name?> [<?=$user->username?>]</td>
+					<td><?=$rep['reason']?></td>
+					<td><?=$this->dateify($rep['stamp'])?></td>
+				</tr>
+				<?php
+			}
+		} else {
+			echo "<tr><td colspan='4'><center><i>There are no reports to display..</i></center></td></tr>";
+		}
+	?>
+</table>
+<a href="/report" class="btn btn-default"><i class="fa fa-chevron-left"></i> Back</a>
+</div>

@@ -1,0 +1,97 @@
+<body>
+<div id='wrapper'>
+<!-- Sidebar -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<!-- Brand and toggle get grouped for better mobile display -->
+<div class="navbar-header">
+  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+    <span class="sr-only">Toggle navigation</span>
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+  </button>
+  <a class="navbar-brand" href="index.html">SmallURL Administration</a>
+</div>
+
+<!-- Collect the nav links, forms, and other content for toggling -->
+<div class="collapse navbar-collapse navbar-ex1-collapse">
+  <ul class="nav navbar-nav side-nav">
+    <li <?php if($category == 'dashboard') { echo "class=\"active\"";}?>><a href="/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+    <li <?php if($category == 'users') { echo "class=\"active\"";}?>><a href="/users"><i class="fa fa-user"></i> Users</a></li>
+    <li <?php if($category == 'urls') { echo "class=\"active\"";}?>><a href="/shortened"><i class="fa fa-external-link"></i> Shortened URLs</a></li>
+    <li <?php if($category == 'report') { echo "class=\"active\"";}?>><a href="/report"><i class="fa fa-warning"></i> Reports</a></li>
+
+
+    <li class="dropdown" <?php if($category == 'dashboard') { echo "class=\"servers\"";}?>>
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-tasks"></i> Servers <b class="caret"></b></a>
+      <ul class="dropdown-menu">
+        <li><a href="#">Frontend01.SmallURL.in</a></li>
+        <li><a href="#">Frontend02.SmallURL.in</a></li>
+        <li><a href="#">Screenshots.SmallURL.in</a></li>
+        <li><a href="#">Static01.SmallURL.in</a></li>
+      </ul>
+    </li>
+
+    <li <?php if($category == 'ticket') { echo "class=\"active\"";}?>><a href="/support"><i class="fa fa-comments"></i> Support Tickets</a></li>
+    <li <?php if($category == 'flagged') { echo "class=\"active\"";}?>><a href="/flagged"><i class="fa fa-warning"></i> Flagged URLs</a></li>
+    <li <?php if($category == 'pma') { echo "class=\"active\"";}?>><a href="/phpmyadmin"><i class="fa fa-tint"></i> phpMyAdmin</a></li>
+  </ul>
+
+  <ul class="nav navbar-nav navbar-right navbar-user">
+  <?php
+		$tickets = $this->db->prepare("SELECT * FROM smallurl_support_thread WHERE `status`=1 ORDER BY `stamp` DESC");
+		$tickets->execute();
+		$tickets = $tickets->fetchAll();
+  ?>
+    <li class="dropdown messages-dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> Tickets   &nbsp; <span class="label label-danger badge-danger"><?=count($tickets)?></span> <b class="caret"></b></a>
+      <ul class="dropdown-menu">
+        <li class="dropdown-header"><?=count($tickets)?> Open Tickets</li>
+		<?php
+			if (count($tickets) > 0) {
+				$acc = new account();
+				foreach ($tickets as $tk) {
+					$user = $acc->userInfo($tk['owner']);
+					?>
+			<li class="message-preview">
+			  <a href="#">
+				<span class="avatar"><img src="http://placehold.it/50x50"></span>
+				<span class="name"><?=substr($tk['subject'],0,10);?>...</span>
+				<span class="message"><?=substr($tk['message'],0,40)?>...</span>
+				<span class="time"><i class="fa fa-clock-o"></i> 4:34 PM</span>
+			  </a>
+			</li>
+			<li class="divider"></li>
+				<?php
+			}
+		} else {
+		
+		}
+		?>
+        <li><a href="/support">View Tickets <span class="badge"><?=count($tickets)?></span></a></li>
+      </ul>
+    </li>
+    <li class="dropdown alerts-dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> Alerts &nbsp;<span class="label label-warning">3</span> <b class="caret"></b></a>
+      <ul class="dropdown-menu">
+        <li><a href="#">Default <span class="label label-default">Default</span></a></li>
+        <li><a href="#">Primary <span class="label label-primary">Primary</span></a></li>
+        <li><a href="#">Success <span class="label label-success">Success</span></a></li>
+        <li><a href="#">Info <span class="label label-info">Info</span></a></li>
+        <li><a href="#">Warning <span class="label label-warning">Warning</span></a></li>
+        <li><a href="#">Danger <span class="label label-danger">Danger</span></a></li>
+        <li class="divider"></li>
+        <li><a href="#">View All</a></li>
+      </ul>
+    </li>
+    <li class="dropdown user-dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i>  <?php echo $this->account->userInfo()->name; ?> <b class="caret"></b></a>
+      <ul class="dropdown-menu">
+        <li><a href="http://account.<?=SITE_URL?>/"><i class="fa fa-user"></i> Profile</a></li>
+        <li class="divider"></li>
+        <li><a href="http://account.<?=SITE_URL?>/logout"><i class="fa fa-power-off"></i> Log Out</a></li>
+      </ul>
+    </li>
+  </ul>
+</div><!-- /.navbar-collapse -->
+</nav>

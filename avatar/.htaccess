@@ -1,0 +1,10 @@
+Options +FollowSymLinks  
+RewriteEngine On  
+  
+RewriteCond %{SCRIPT_FILENAME} !-d  
+RewriteCond %{SCRIPT_FILENAME} !-f 
+
+# Use [L,NC,NS,QSA] to forward query Str
+
+# Write avatars to the index file so we dont need the ?
+RewriteRule ^([\w\-]+)$ ./index.php?$1

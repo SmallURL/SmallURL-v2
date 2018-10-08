@@ -1,0 +1,9 @@
+Options +FollowSymLinks  
+RewriteEngine On  
+  
+RewriteCond %{SCRIPT_FILENAME} !-d  
+RewriteCond %{SCRIPT_FILENAME} !-f  
+RewriteRule ^([\w\-]+)$ http://smallurl.in/load.php?url=$1  
+RewriteRule ^([\w\-]+)/safe$ http://smallurl.in/index.php?p=more&i=$1
+RewriteRule ^([\w\-]+)/more$ http://smallurl.in/index.php?p=more&i=$1
+

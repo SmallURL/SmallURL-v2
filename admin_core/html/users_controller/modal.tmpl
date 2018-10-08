@@ -1,0 +1,29 @@
+<!-- Modal -->
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        <div id='html_incon'>Loading.</div>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<script>
+function show_modal (type, id) {
+    $("#modal").modal('show');
+    $( "#html_incon" ).load("/users/post/"+type+"/<?=$_SESSION['crsf'];?>/"+id);
+}
+</script>
+
+<?php
+if(isset($_SESSION['password_javascript'])) {
+    echo $_SESSION['password_javascript'];
+    unset($_SESSION['password_javascript']);
+}
+?>

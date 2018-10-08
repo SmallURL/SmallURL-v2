@@ -1,0 +1,1 @@
+<?php header("Location: //account.".$_SMALLURL['domain']."/login");

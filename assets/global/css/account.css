@@ -1,0 +1,247 @@
+* {
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+}
+html, body {
+padding:0;
+margin:0;
+font-family: 'Roboto', sans-serif;
+}
+.alert {
+	border-left:none !important;
+	border-right:none !important;
+	border-radius:0px !important;
+}
+#topbar {
+width: 100%;
+height:50px;
+background-color:#fafbfd;
+border-bottom: 1px solid #f8f9fb;
+overflow:hidden;
+font-family: 'Roboto', sans-serif;
+font-weight:300;
+}
+#navigation {
+width: 100%;
+height: 80px;
+background-color:#FFF;
+margin-top:-1px;
+border-top: 1px solid #eeeff1;
+}
+#banner {
+width: 100%;
+height: 120px;
+background-image:url("/smallurl/img/style/account_banner.png");
+background-size:cover;
+background-repeat: no-repeat;
+background-position:center;
+font-family: 'Roboto', sans-serif;
+color:White;
+font-size:24px;
+font-weight:300;
+}
+#internal_navbar {
+	height: 50px;
+	background-color: #fafbfd;
+	border-bottom:1px solid #E9E9E9;
+	/*overflow: hidden;*/
+	width:100%;
+}
+#internal_navbar .wrap {
+	height:50px;
+	padding:14px;
+}
+#internal_nav {
+	list-style-type:none;
+	width:890px;
+	margin:auto;
+}
+#internal_nav li {
+	display:inline;
+	padding-right:16px;
+	padding-left:16px;
+}
+#internal_nav li a {
+	display: inline-block;
+}
+.float-left {
+float:left;
+}
+.float-right { float:right;}
+.wrap {
+width: 890px; margin:auto;
+}
+.ta-right {
+text-align:right;
+}
+
+#menubar {
+float:right;
+}
+#menubar ul {
+    margin-top:-5px !important;
+}
+#menubar li {
+display:block;
+float:right;
+}
+#menubar li a {
+padding-top:31px;
+padding-left:10px;
+padding-right:10px;
+padding-bottom:28px;
+line-height:80px;
+font-family: 'Roboto', sans-serif;
+font-weight:300;
+
+}
+
+#menubar li a:hover {
+border-bottom: 2px solid #e23c3c;
+background-color:#ececec;
+}
+
+/* Disabled */
+#menubar li .disabled {
+	padding-top:31px;
+	padding-left:10px;
+	padding-right:10px;
+	padding-bottom:28px;
+	line-height:80px;
+	font-family: 'Roboto', sans-serif;
+	font-weight:300;
+}
+
+#menubar li .disabled:hover {
+	border-bottom: 2px solid #7E7E7E;
+	background-color:#ececec;
+	cursor:pointer;
+}
+
+#logo {
+height: 40px;
+width: 171px;
+margin-top:17.5px;
+float:left;
+background-size: cover;
+background-image:url("/smallurl/img/style/small_logo_black.png");
+}
+
+#footer {
+width: 100%;
+height: 150px;
+color:white;
+background-color:#14171c;
+}
+#foot {
+width: 100%;
+height: 50px;
+background-color:black;
+line-height: 50px;
+color:#858688;
+font-family: 'Roboto', sans-serif;
+font-weight: 300;
+font-size:14px;
+
+}
+
+hr {
+border: 1px solid #9e9e9e;
+opacity:0.4;
+}
+a:link    {color:#558bee; text-decoration: none;}
+a:visited {color:#558bee; text-decoration: none;}
+a:hover   {color:#55a4ee; text-decoration: none !important;}
+a:active  {color:#55a4ee;text-decoration: none;}
+
+#banner-table {
+display:table; height: 120px;
+}
+.banner-table-cell {
+display:table-cell; height: 120px; vertical-align:middle;
+}
+.inlineblock {
+display:inline-block;
+}
+.banner-opacity {
+font-size:12px; opacity: 0.8;
+}
+
+.banner-icon {
+width: 20px; height: 20px;  margin-left:5px; float:left; text-align: center; line-height:20px;font-size:20px;
+}
+#banner-right-text {
+margin-top:2px;text-align:left; float:right;
+}
+
+#aa-account-logo {
+float: left;
+width: 35px;
+height: 35px;
+margin-top: 10px;
+border-radius: 27.5px;
+-webkit-border-radius: 22.5px;
+-moz-border-radius: 22.5px;
+margin-right: 10px;
+
+
+background-size: cover;
+}
+
+#aa-account-name {
+font-size: 17px;
+height: 30px;
+line-height: 40px;
+text-align: right;
+color: #1c5c9e;
+}
+#aa-account-plan {
+height: 25px;
+line-height: 15px;
+font-size: 13px;
+text-align: right;
+color: #b6b6b6;
+}
+#aa-dropdown-arr {
+float: right;
+height: 55px;
+text-align: center;
+padding-left: 10px;
+line-height: 55px;
+color: #1c5c9e;
+}
+#iconplus {
+background-color:red;
+}
+
+
+#icplus {
+padding-left:5px;
+padding-right:5px;
+}
+#icplus:hover {
+background-color:#f1f1f1;
+}
+.devel {
+	height: 50px !important;
+	background-color: #9E0000;
+	border-bottom: 1px solid #FF0000 !important;
+	z-index: 999999;
+	position: absolute !important;
+	top: 0;
+	left: 0;
+	padding: 5px;
+	color: white;
+	font-size: 28px;
+}
+#menubar ul, ol {
+    margin-top: -3px !important;
+}
+#flright {
+    padding-left: 100px;
+    margin-top:-10px;
+}
+hr {
+    margin-top:5px !important;
+    margin-bottom:8px !important;
+}

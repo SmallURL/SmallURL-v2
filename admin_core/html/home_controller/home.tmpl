@@ -1,0 +1,287 @@
+<div id="page-wrapper">
+
+<?php $this->theme->title("Dashboard", "SmallURL Overview", array()); ?>
+
+<?php if($account->haspriv("admin_dash_counters")) { ?>
+<div class="row">
+  <div class="col-lg-3">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <div class="row">
+          <div class="col-xs-6">
+            <i class="fa fa-comments fa-5x"></i>
+          </div>
+          <div class="col-xs-6 text-right">
+            <p class="announcement-heading">456</p>
+            <p class="announcement-text">New URLs!</p>
+          </div>
+        </div>
+      </div>
+      <a href="#">
+        <div class="panel-footer announcement-bottom">
+          <div class="row">
+            <div class="col-xs-8">
+              View Shortned URLs
+            </div>
+            <div class="col-xs-4 text-right">
+              <i class="fa fa-arrow-circle-right"></i>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+  <div class="col-lg-3">
+    <div class="panel panel-warning">
+      <div class="panel-heading">
+        <div class="row">
+          <div class="col-xs-6">
+            <i class="fa fa-check fa-5x"></i>
+          </div>
+          <div class="col-xs-6 text-right">
+            <p class="announcement-heading">12</p>
+            <p class="announcement-text">New Tickets</p>
+          </div>
+        </div>
+      </div>
+      <a href="#">
+        <div class="panel-footer announcement-bottom">
+          <div class="row">
+            <div class="col-xs-6">
+              View open tickets
+            </div>
+            <div class="col-xs-6 text-right">
+              <i class="fa fa-arrow-circle-right"></i>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+  <div class="col-lg-3">
+    <div class="panel panel-danger">
+      <div class="panel-heading">
+        <div class="row">
+          <div class="col-xs-6">
+            <i class="fa fa-warning fa-5x"></i>
+          </div>
+          <div class="col-xs-6 text-right">
+            <p class="announcement-heading"><?php
+			$reported = $this->db->prepare("SELECT * FROM smallurl_report");
+			$reported->execute();
+			echo $reported->rowCount(); ?></p>
+            <p class="announcement-text">Reports</p>
+          </div>
+        </div>
+      </div>
+      <a href="#">
+        <div class="panel-footer announcement-bottom">
+          <div class="row">
+            <div class="col-xs-6">
+              View Reports
+            </div>
+            <div class="col-xs-6 text-right">
+              <i class="fa fa-arrow-circle-right"></i>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+  <div class="col-lg-3">
+    <div class="panel panel-success">
+      <div class="panel-heading">
+        <div class="row">
+          <div class="col-xs-6">
+            <i class="fa fa-comments fa-5x"></i>
+          </div>
+          <div class="col-xs-6 text-right">
+            <p class="announcement-heading">56</p>
+            <p class="announcement-text">New Sign-Ups!</p>
+          </div>
+        </div>
+      </div>
+      <a href="#">
+        <div class="panel-footer announcement-bottom">
+          <div class="row">
+            <a href='/users/'><div class="col-xs-6">
+              View User List
+            </div>
+            <div class="col-xs-6 text-right">
+              <i class="fa fa-arrow-circle-right"></i>
+            </div></a>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div><!-- /.row -->
+<?php } ?>
+
+<?php if($account->haspriv("admin_dash_traffic")) { ?>
+<div class="row">
+  <div class="col-lg-12">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Traffic Statistics: October 1, 2013 - October 31, 2013</h3>
+      </div>
+      <div class="panel-body">
+        <div id="morris-chart-area"></div>
+      </div>
+    </div>
+  </div>
+</div><!-- /.row -->
+<?php } ?>
+
+<?php if($account->haspriv("admin_dash_info")) { ?>
+<div class="row">
+  <div class="col-lg-4">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-clock-o"></i> Admin Login Activity</h3>
+      </div>
+      <div class="panel-body">
+        <div class="list-group">
+          <a href="#" class="list-group-item">
+            <span class="badge">just now</span>
+            <i class="fa fa-user"></i> Thomas Edwards failed to login
+          </a>
+          <a href="#" class="list-group-item">
+            <span class="badge">4 minutes ago</span>
+            <i class="fa fa-user"></i> Thomas Edwards failed to login
+          </a>
+          <a href="#" class="list-group-item">
+            <span class="badge">23 minutes ago</span>
+            <i class="fa fa-user"></i> UID 2 has incorrect privlages to login
+          </a>
+          <a href="#" class="list-group-item">
+            <span class="badge">46 minutes ago</span>
+            <i class="fa fa-user"></i> Thomas Edwards failed to login
+          </a>
+          <a href="#" class="list-group-item">
+            <span class="badge">1 hour ago</span>
+            <i class="fa fa-check"></i> Thomas Edwards logged in
+          </a>
+          <a href="#" class="list-group-item">
+            <span class="badge">2 hours ago</span>
+            <i class="fa fa-user"></i> Thomas Edwards failed to login
+          </a>
+          <a href="#" class="list-group-item">
+            <span class="badge">yesterday</span>
+            <i class="fa fa-check"></i> Anonymous logged in
+          </a>
+          <a href="#" class="list-group-item">
+            <span class="badge">two days ago</span>
+            <i class="fa fa-check"></i> Anonymous logged in
+          </a>
+        </div>
+        <div class="text-right">
+          <a href="#">View All Activity <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-4">
+    <h4 style='text-align:center;'> Support Ticket Status: </h4>
+      <table class="table table-hover" style='text-align: center'>
+        <thead>
+          <tr style='text-align: center;'>
+            <th style='text-align: center;'> Departments</th>
+            <th style='text-align: center; width: 40px;'>Total</th>
+            <th style='text-align: center; width: 40px;'>Closed</th>
+            <th style='text-align: center; width: 40px;'>Open</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>SmallURL</td>
+            <td><span class="label label-info">42</span></td>
+            <td><span class="label label-danger">31</span></td>
+            <td><span class="label label-success">11</span></td>
+          </tr>
+          <tr>
+            <td>SmallPaste</td>
+            <td><span class="label label-info">42</span></td>
+            <td><span class="label label-danger">31</span></td>
+            <td><span class="label label-success">11</span></td>
+          </tr>
+          <tr>
+            <td>SmallImage</td>
+            <td><span class="label label-info">42</span></td>
+            <td><span class="label label-danger">31</span></td>
+            <td><span class="label label-success">11</span></td>
+          </tr>
+        </tbody>
+      </table><br />
+        <h4 style='text-align: center;'> Statistics: </h4>
+    <div class="list-group" style='text-align: center;'>
+  <a href="#" class="list-group-item">
+    <b>400</b> URLs have been shortened!
+  </a>
+  <a href="#" class="list-group-item">There has been a total of <b>40</b> signups.</a>
+  <a href="#" class="list-group-item"><b>40</b> Private URLs were made</a>
+  <a href="#" class="list-group-item">A total of <b>999</b> URLS were cached</a>
+  <a href="#" class="list-group-item">Sadly, <b>921</b> accounts had to be suspended.</a>
+  </div>
+  </div>
+
+
+  <div class="col-lg-4">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-clock-o"></i> Recent Activity</h3>
+      </div>
+      <div class="panel-body">
+        <div class="list-group">
+          <a href="#" class="list-group-item">
+            <span class="badge">just now</span>
+            <i class="fa fa-calendar"></i> UID 4 was suspended
+          </a>
+          <a href="#" class="list-group-item">
+            <span class="badge">4 minutes ago</span>
+            <i class="fa fa-comment"></i> URL x was marked as fraud
+          </a>
+          <a href="#" class="list-group-item">
+            <span class="badge">23 minutes ago</span>
+            <i class="fa fa-truck"></i> New RP was launched
+          </a>
+          <a href="#" class="list-group-item">
+            <span class="badge">46 minutes ago</span>
+            <i class="fa fa-money"></i> Thomas Died
+          </a>
+          <a href="#" class="list-group-item">
+            <span class="badge">1 hour ago</span>
+            <i class="fa fa-user"></i> X created a SmallURL account
+          </a>
+          <a href="#" class="list-group-item">
+            <span class="badge">2 hours ago</span>
+            <i class="fa fa-check"></i> Ticket marked as closed
+          </a>
+          <a href="#" class="list-group-item">
+            <span class="badge">yesterday</span>
+            <i class="fa fa-globe"></i> SmallURL saved the world
+          </a>
+          <a href="#" class="list-group-item">
+            <span class="badge">two days ago</span>
+            <i class="fa fa-check"></i> Ticket marked as closed
+          </a>
+        </div>
+        <div class="text-right">
+          <a href="#">View All Activity <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- /.row -->
+
+
+<?php }
+
+
+
+if(!$account->haspriv("admin_dash_counters") && !$account->haspriv("admin_dash_traffic") && !$account->haspriv("admin_dash_info")) {
+  echo "<h4> I'm afraid that there is no content available.</h4>";
+}
+?>
+</div>

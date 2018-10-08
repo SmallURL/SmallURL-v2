@@ -1,0 +1,56 @@
+<div id="page-wrapper">
+<?php $this->theme->title("Support Tickets", "Supporting the SmallURL userbase since 2013.", array("Support")); ?>
+<div class="wrap">
+	<h2>Open Tickets <button style="float:right" class="btn btn-success" onclick="document.location.href='/support/create';"><span class="glyphicon glyphicon-plus"></span> Create Ticket</button></h2>
+	<p>Below are all open tickets from users. Click their Subject to view them.</p>
+	<table class="table">
+		<tr>
+			<thead>
+				<td><b>Subject</b></td>
+				<td width="200px"><b>Date</b></td>
+				<td width="100px"><b>Status</b></td>
+			</thead>
+		</tr>
+		<?php
+		$tickets = $this->db->prepare("SELECT * FROM smallurl_support_thread WHERE `status`=1");
+		$tickets->execute();
+		$tickets = $tickets->fetchAll();
+		
+		if (count($tickets) <= 0) {
+			echo "<tr><td colspan=\"3\"><center><i>You havent got any open Support Tickets! Yay?</i></center></td></tr>";
+		} else {
+			foreach ($tickets as $tick) {
+				echo "<tr>";
+				if ($tick['unread']) {
+					echo "<td><a href=\"/support/view/{$tick['short']}\"><strong>".htmlentities($tick['subject'])."</strong></a></td>";
+				} else {
+					echo "<td><a href=\"/support/view/{$tick['short']}\">".htmlentities($tick['subject'])."</a></td>";
+				}
+				echo "<td>".$this->dateify($tick['stamp'])."</td>";
+				// We get the replies and the last one.
+				$replies = $this->db->prepare("SELECT * FROM smallurl_support_reply WHERE `thread`=:thread");
+				$replies->execute(array(":thread"=>$tick['id']));
+				$replies = $replies->fetchAll();
+				if (count($replies) > 0) {
+					if ($replies[0]['user'] == $tick['owner']) {
+						$stat = "User Reply";
+					} else {
+						$stat = "<strong>Staff Reply</strong>";
+					}
+				} else {
+					if ($tick['user'] == $tick['owner']) {
+						$stat = "User Ticket";
+					} else {
+						$stat = "<strong>Staff Ticket</strong>";
+					}
+				}
+				echo "<td>{$stat}</td>";
+				echo "</tr>";
+			}
+		}
+		?>
+	</table>
+	<hr>
+</div>
+</div>
+<?php

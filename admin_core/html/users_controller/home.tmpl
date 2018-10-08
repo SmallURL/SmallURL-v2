@@ -1,0 +1,97 @@
+<div id="page-wrapper">
+<?php $this->theme->title("Users", "SmallURL users overview", array("Users")); ?>
+
+
+<?php
+// Render the button
+ob_start();
+$viewmode = 'Default View';
+if($account->haspriv("can_smallurl")) { ?><li><a href="/users/smallurl">SmallURL View</a></li> <?php }
+if($account->haspriv("can_smallimage")) { ?><li><a href="/users/smallimage">SmallImage View</a></li><?php }
+if($account->haspriv("can_smallpaste")) { ?><li><a href="/users/smallpaste">SmallPaste VIew</a></li><?php }
+$a = ob_get_contents();
+ob_end_clean();
+
+if($mode == 'SmallURL') { $viewmode = 'SmallURL View'; } else if ($mode == 'SmallPaste') { $viewmode = 'SmallPaste View'; } else if($mode == 'SmallImage') { $viewmode = 'SmallImage View'; } else { $viewmode = 'Default View';}
+?>
+<?php if($a != '') { ?>
+<div class="btn-group" style='float:right; margin-top:-120px;'>
+    <button type="button" class="btn btn-info"><?=$viewmode;?></button>
+    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+      <span class="caret"></span>
+      <span class="sr-only">Toggle Dropdown</span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+        <?=$a?>
+      <li class="divider"></li>
+      <li><a href="/users">Reset View</a></li>
+    </ul>
+  </div>
+<?php }?>
+
+<table class="table table-hover">
+<thead style='text-align: center;'>
+<tr style='text-align: center;'>
+<th style='text-align: center; width: 25px;'>#</th>
+<th style='text-align: center;'>E-Mail</th>
+<th style='text-align: center;'>Name</th>
+<th style='text-align: center;'>Registered</th>
+<th style='text-align: center;'>Last Login </th>
+<?php if($mode == 'SmallURL' ) { echo "<th style='text-align: center;'>URLs </th>"; } ?>
+<?php if($mode == 'SmallImage' ) { echo "<th style='text-align: center;'>Images </th>"; } ?>
+<?php if($mode == 'SmallPaste' ) { echo "<th style='text-align: center;'>Pastes </th>"; } ?>
+<?php if($mode == 'Default' ) { echo "<th style='text-align: center;'>Services </th>"; } ?>
+<th style='text-align: center;'> Manage User </th>
+<th style='text-align: center;'> Disable User </th>
+</tr>
+</thead>
+
+<?php
+$query = $this->db->prepare("SELECT * FROM `smallurl_users`");
+$data = $query->execute();
+
+     while ($row = $query->fetchObject()) {
+        if($row->regstamp == '0') { $ru = "Unknown Registration!"; } else { $ru = gmdate("d-m-Y H:i:s",$row->regstamp); }
+if($row->regip == '') { $ri = '0.0.0.0'; } else { $ri = $row->regip; }
+if($row->laststamp == '0') { $lu = "Unknown Login!"; } else { $lu = gmdate("d-m-Y H:i:s",$row->laststamp); }
+if($row->lastip == '') { $li = '0.0.0.0'; } else { $li = $row->lastip; }
+
+if($mode == 'SmallURL') {
+    //$dbv = $db->get_array("entries",array("user"=>$row->id']),"COUNT(*)");
+    //$typevalue = $dbv[0]['COUNT(*)']
+    $typevalue = '0';
+    $typevalue =  "<td> <a href='javascript:show_modal(\"show_urls\", \"".$row->id."\");'> <button type=\"button\" class=\"btn btn-success\"> ".$typevalue."</button> </a></td>";
+} else if($mode == 'SmallPaste') {
+    $typevalue = '0';
+    $typevalue = "<td> <a href='javascript:show_modal(\"show_pastes\", \"".$row->id."\");'> <button type=\"button\" class=\"btn btn-success\"> ".$typevalue."</button> </a></td>";
+} else if($mode == 'SmallImage') {
+    $typevalue = '0';
+    $typevalue =  "<td> <a href='javascript:show_modal(\"show_images\", \"".$row->id."\");'> <button type=\"button\" class=\"btn btn-success\"> ".$typevalue."</button> </a></td>";
+} else {
+    $typevalue = '1';
+    $typevalue =  "<td> <a href='javascript:show_modal(\"show_services\", \"".$row->id."\");'> <button type=\"button\" class=\"btn btn-success\"> ".$typevalue."</button> </a></td>";
+}
+?>
+<tr style='text-align: center;'>
+    <td><?=$row->id;?></td>
+    <td><?=$row->email;?> <br /> <span class="label label-info"><?=$row->username;?></span></td>
+    <td><?=$row->name;?></td>
+    <td><?=$ru;?> <br /> <span class="label label-success"><?=$ri;?> </span></td>
+    <td><?=$lu;?> <br /> <span class="label label-success"><?=$li;?> </span></td>
+    <?=$typevalue;?>
+    <td> <div class="btn-group"> <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown"> Manage <span class="caret"></span> </button> <ul class="dropdown-menu" role="menu"> <li><a href="#">Open Ticket</a></li> <li class="divider"></li> <li><?="<a href='javascript:show_modal(\"edit_user\", \"".$row->id."\");'>";?>Edit User</a></li> <li> <?="<a href='javascript:show_modal(\"reset_password\", \"".$row->id."\");'>";?>Change Password</a></li></ul> </div> </td>
+    <td> <?php  if($row->enabled == '1') { ?><a href='/users/post/disable_user/<?=$_SESSION['crsf'];?>/<?=$row->id;?>'><button type="button" class='<?php if(!$account->haspriv("admin_users_modify")) { echo "disabled";}?> btn btn-danger'> Disable </button> </a>
+         <?php } else { ?><a href='/users/post/enable_user/<?=$_SESSION['crsf'];?>/<?=$row->id;?>'><button type="button" class="btn btn-success"> Enable </button> </a>
+         <?php } ?>
+
+    </td>
+</tr>
+<?php
+
+
+
+    }
+?>
+</table>
+
+</div>

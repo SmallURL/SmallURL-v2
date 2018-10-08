@@ -1,0 +1,43 @@
+Options +FollowSymLinks  
+RewriteEngine On  
+  
+RewriteCond %{SCRIPT_FILENAME} !-d  
+RewriteCond %{SCRIPT_FILENAME} !-f 
+
+# Use [L,NC,NS,QSA] to forward query Str
+
+# /404
+RewriteRule ^404\/?$ ./index.php?p=404&s=misc
+
+# Login, Reg etc
+RewriteRule ^(forgot)\/?$ ./account_login.php/$1 [L,NC,NS,QSA]
+RewriteRule ^(login)\/?$ ./account_login.php/$1 [L,NC,NS,QSA]
+RewriteRule ^(register)\/?$ ./account_login.php/$1 [L,NC,NS,QSA]
+RewriteRule ^(logout)\/?$ ./account_login.php/$1 [L,NC,NS,QSA]
+RewriteRule ^(auth)/([\w\-]+)\/?$ ./account_login.php/$1/$2 [L,NC,NS,QSA]
+RewriteRule ^(setpassword)\/?$ ./account_login.php/$1 [L,NC,NS,QSA]
+
+# Apps
+RewriteRule ^apps\/?$ ./index.php?p=home&s=apps
+RewriteRule ^apps/view\/?$ ./index.php?p=home&s=apps
+RewriteRule ^apps/view/([\w\-]+)$ ./index.php?p=view&i=$1&s=apps
+
+RewriteRule ^apps/edit/([\w\-]+)$ ./index.php?p=edit&i=$1&s=apps
+RewriteRule ^apps/auth\/?$ ./index.php?p=auth&i=$1&s=apps
+RewriteRule ^apps/create\/?$ ./index.php?p=create&i=$1&s=apps
+
+# Account
+RewriteRule ^(verify)\/?$ ./index.php?p=$1&s=account [L,NC,NS,QSA]
+RewriteRule ^(verify)/([\w\-]+)\/?$ ./index.php?p=$1&s=account&key=$2 [L,NC,NS,QSA]
+RewriteRule ^(details)\/?$ ./index.php?p=$1&s=account
+RewriteRule ^(preferences)\/?$ ./index.php?p=$1&s=account
+RewriteRule ^(urls)\/?$ ./index.php?p=$1&s=account
+RewriteRule ^(api)\/?$ ./index.php?p=$1&s=account
+RewriteRule ^(notification)\/?$ ./index.php?p=$1&s=account
+RewriteRule ^(reset)\/?$ ./index.php?p=reset&s=account/$1
+RewriteRule ^(reset)/([\w\-]+)\/?$ ./index.php?p=reset&s=account&i=$2
+
+# Support
+RewriteRule ^support\/?$ ./index.php?p=home&s=support
+RewriteRule ^support/view/([\w\-]+)$ ./index.php?p=view&i=$1&s=support
+RewriteRule ^support/([\w\-]+)$ ./index.php?p=$1&s=support

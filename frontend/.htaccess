@@ -1,0 +1,55 @@
+Options +FollowSymLinks  
+RewriteEngine On  
+  
+RewriteCond %{SCRIPT_FILENAME} !-d  
+RewriteCond %{SCRIPT_FILENAME} !-f 
+
+# Use [L,NC,NS,QSA] to forward query Str
+
+# /404
+RewriteRule ^404\/?$ ./index.php?p=404&s=misc [L,NC,NS,QSA]
+
+# Admin Panel
+RewriteRule ^admin\/?$ ./index.php?p=home&s=admin [L,NC,NS,QSA]
+RewriteRule ^admin/([\w\-]+)$ ./index.php?p=$1&s=admin [L,NC,NS,QSA]
+RewriteRule ^admin/support\/?$ ./index.php?p=support&s=admin [L,NC,NS,QSA]
+RewriteRule ^admin/support/([\w\-]+)$ ./index.php?p=support_$1&s=admin [L,NC,NS,QSA]
+RewriteRule ^admin/support/view/([\w\-]+)$ ./index.php?p=support_view&i=$1&s=admin [L,NC,NS,QSA]
+
+# Account Removed
+#RewriteRule ^account\/?$ ./index.php?p=home&s=account 
+#RewriteRule ^account/([\w\-]+)$ ./index.php?p=$1&s=account
+
+# User system
+RewriteRule ^(user|users)\/?$ ./index.php?p=home&s=user [L,NC,NS,QSA]
+RewriteRule ^(user|users)/([\w\-+]+)\/?$ ./index.php?p=user&s=user&i=$2 [L,NC,NS,QSA]
+RewriteRule ^(user|users)/([\w\-]+)/([\w\-]+)\/?$ ./index.php?p=$2&s=user&i=$2 [L,NC,NS,QSA]
+
+RewriteRule ^list\/?$ ./index.php?p=list&s=misc [L,NC,NS,QSA]
+# RewriteRule ^stats/?(.*)$ ./index.php?p=stats&s=misc$1 [L,NC,NS,QSA]
+RewriteRule ^stats\/?$ ./index.php?p=stats&s=misc [L,NC,NS,QSA]
+RewriteRule ^download\/?$ ./index.php?p=download&s=misc [L,NC,NS,QSA]
+RewriteRule ^about\/?$ ./index.php?p=about&s=misc [L,NC,NS,QSA]
+RewriteRule ^privacy\/?$ ./index.php?p=privacy&s=misc [L,NC,NS,QSA]
+RewriteRule ^invalid\/?$ ./index.php?p=not_found&s=misc [L,NC,NS,QSA]
+RewriteRule ^suspended/([\w\-]+)\/?$ ./index.php?p=suspended&s=misc&i=$2 [L,NC,NS,QSA]
+
+RewriteRule ^warn/([\w\-]+)$ ./index.php?p=warn&i=$1 [L,NC,NS,QSA]
+
+RewriteRule ^login\/?$ ./index.php?p=login&s=account [L,NC,NS,QSA]
+RewriteRule ^register\/?$ ./index.php?p=register&s=account [L,NC,NS,QSA]
+RewriteRule ^forgot\/?$ ./index.php?p=forgot_password&s=account [L,NC,NS,QSA]
+
+RewriteRule ^paste\/?$ ./index.php?p=home&s=paste [L,NC,NS,QSA]
+RewriteRule ^paste/read\/?$ ./index.php?p=read&s=paste [L,NC,NS,QSA]
+RewriteRule ^paste/create\/?$ ./index.php?p=create&s=paste [L,NC,NS,QSA]
+
+
+RewriteRule ^search\/?$ ./index.php?p=search&s=misc [L,NC,NS,QSA]
+RewriteRule ^search/([\w\-+]+)\/([0-9]+)\/?$ ./index.php?p=search&s=misc&q=$1&i=$2 [L,NC,NS,QSA]
+RewriteRule ^search/([\w\-+]+)\/?$ ./index.php?p=search&s=misc&q=$1 [L,NC,NS,QSA]
+
+RewriteRule ^([\w\-]+)$ ./load.php?url=$1  
+RewriteRule ^([\w\-]+)/(more|safe|stats)\/?$ ./index.php?p=safe&i=$1&t=info [L,NC,NS,QSA]
+RewriteRule ^([\w\-]+)/(more|safe|stats)\/(info|heatmap|screenshot|preview)\/?$ ./index.php?p=safe&i=$1&t=$3 [L,NC,NS,QSA]
+

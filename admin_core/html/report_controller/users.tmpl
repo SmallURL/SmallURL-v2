@@ -1,0 +1,39 @@
+<div id="page-wrapper">
+<?php $this->theme->title("Reports >", "Reported Users", array("Reported Users and URLs","Reported Users")); ?>
+<?php
+$users = $this->db->prepare("SELECT * FROM smallurl_report WHERE `type`=2");
+$users->execute();
+$users = $users->fetchAll();
+?>
+<h2>Reported Users</h2>
+<table class="table table-hover">
+	<thead>
+		<tr>
+			<th>User</th>
+			<th>Reporter</th>
+			<th>Reason</th>
+			<th>Date</th>
+		</tr>
+	</thead>
+	<?php
+		if (count($users) > 0) {
+			$acc = new account();
+			foreach ($users as $rep) {
+				$reporter = $acc->userInfo($rep['user']);
+				$reported = $acc->userInfo($rep['item']);
+				?>
+				<tr>
+					<td><?=$reported->name?> [<?=$reported->username?>]</td>
+					<td><?=$reporter->name?> [<?=$reporter->username?>]</td>
+					<td><?=$rep['reason']?></td>
+					<td><?=$this->dateify($rep['stamp'])?></td>
+				</tr>
+				<?php
+			}
+		} else {
+			echo "<tr><td colspan='4'><center><i>There are no reports to display..</i></center></td></tr>";
+		}
+	?>
+</table>
+<a href="/report" class="btn btn-default"><i class="fa fa-chevron-left"></i> Back</a>
+</div>
